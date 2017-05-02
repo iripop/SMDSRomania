@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "SignIn";
+    Layout=null;
+}
+
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+<link href="~/Content/login.css" rel="stylesheet">
+<link href="~/css/font-awesome.css" rel="stylesheet">
+<div class="main">
+    <div class="container">
+        <center>
+            <div class="middle">
+                <div id="login">
+                    <form action="javascript:void(0);" method="get">
+                        <fieldset class="clearfix">
+                            <p><span class="fa fa-user"></span><input type="text" Placeholder="Username" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
+                            <p><span class="fa fa-lock"></span><input type="password" Placeholder="Password" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
+
+                            <div>
+                                <span style="width:48%; text-align:left;  display: inline-block;">
+                                    <a class="small-text" href="#">
+                                        Forgot
+                                        password?
+                                    </a>
+                                </span>
+                                <span style="width:50%; text-align:right;  display: inline-block;"><input onclick="Login()" type="submit" value="Sign In"></span>
+                            </div>
+                        </fieldset>
+                        <div class="clearfix"></div>
+                    </form>
+                    <div class="clearfix"></div>
+                </div> <!-- end login -->
+                <div class="logo">
+                    LOGO
+
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </center>
+    </div>
+</div>
+<script>
+        function Login() {
+            $.get("http://localhost:33095/LogIn/SignIn",
+                {
+                    username: $("#username").val(),
+                    password: $("#password").val()
+                },
+                function (response) {
+                    if (response != "Wrong username or password.") {
+                        localStorage.setItem("userid", response);
+                        window.location.href = "http://localhost:33095/Home/Index";
+                    }
+                    else {
+                        alert(response);
+                    }
+                }
+            );
+        }
+</script>
